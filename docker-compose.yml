@@ -1,0 +1,38 @@
+version: '3.9'
+
+networks:
+  weather_api_network:
+    name: weather_api_network
+
+volumes:
+  weather_api_sql_volume:
+
+services:
+  weather_api_service:
+    environment:
+      - 'ConnectionStrings:WeatherDatabase=Server=host.docker.internal,1433;Database=weatherApi;User Id=sa;Password=zaq1@WSX;TrustServerCertificate=True'
+    build:
+      context: .
+      dockerfile: ./WeatherApi/Dockerfile
+    image: weather-api:latest
+    depends_on:
+      - weather_api_sql_database
+    ports:
+        - "8000:8080" 
+    container_name: weather_api
+    networks:
+      - weather_api_network
+    restart: on-failure:5 
+
+  weather_api_sql_database:
+    image: "mcr.microsoft.com/mssql/server" 
+    environment:
+      SA_PASSWORD: "zaq1@WSX"
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - weather_api_sql_volume:/var/opt/mssql
+    container_name: sql_database
+    networks:
+      - weather_api_network

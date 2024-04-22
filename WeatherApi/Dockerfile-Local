@@ -1,0 +1,24 @@
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+
+WORKDIR /app
+EXPOSE 80
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS cache
+
+WORKDIR /src
+COPY WeatherApi ./
+RUN dotnet restore WeatherApi.sln
+
+FROM cache as build
+WORKDIR /src
+ENV SolutionDir "/src"
+RUN dotnet build "WeatherApi/WeatherApi.csproj" --no-restore -c Release
+
+FROM build AS publish
+WORKDIR /src
+RUN dotnet publish "WeatherApi/WeatherApi.csproj" -c Release -o /app
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app .
+ENTRYPOINT ["dotnet", "WeatherApi.dll"]
