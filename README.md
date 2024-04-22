@@ -25,7 +25,7 @@ docker-compose up --build
 ## Project Limitations (known issues)
 Due to the limited implementation time (one evening), the project has the following limitations:
 
-Lack of comprehensive unit tests.
+- Lack of comprehensive unit tests.
 - No handling for database downtimes.
 - No error handling for faults returned by the HTTP client.
 - Not hosted on Azure cloud.
