@@ -22,7 +22,7 @@ docker-compose up --build
 - **GET** `/Weather/location`: List all locations.
 - **POST** `/Weather/location`: Add a new location.
 - **DELETE** `/Weather/location/{locationId}`: Remove a location.
-## Project Limitations (Throwbacks)
+## Project Limitations (known issues)
 Due to the limited implementation time (one evening), the project has the following limitations:
 
 Lack of comprehensive unit tests.
