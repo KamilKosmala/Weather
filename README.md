@@ -29,6 +29,7 @@ Due to the limited implementation time (one evening), the project has the follow
 - No handling for database downtimes.
 - No error handling for faults returned by the HTTP client.
 - Not hosted on Azure cloud.
+  
 These issues will be addressed in the next version of the application, following technical discussions.
 
 ## Notes
